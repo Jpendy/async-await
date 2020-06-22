@@ -6,8 +6,6 @@ const seed  = require('../lib/data-helpers/seed');
 const Movie = require('../lib/models/Movie');
 const Review = require('../lib/models/Review');
 
-
-
 describe('seed functions', () => {
   beforeAll(async() => {
     const uri = await mongod.getUri();
@@ -36,13 +34,16 @@ describe('seed functions', () => {
   });
 
   it('it confirms the seed function has seeded the database with movies based on the input', async() => {
-    const obj = {
+    const seedObject = {
       movieAmount: 10,
       reviewAmount: 50
     };
-    await seed(obj);
+
+    await seed(seedObject);
+
     const movieResult = await Movie.find();
     const reviewResult = await Review.find();
+
     expect(movieResult).toHaveLength(10);
     expect(reviewResult).toHaveLength(50);
   });
